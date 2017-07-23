@@ -1,6 +1,5 @@
 package tech.laosiji.supporttopicandwebpage;
 
-import android.graphics.Color;
 import android.text.SpannableString;
 import android.text.TextPaint;
 import android.text.style.ClickableSpan;
@@ -19,16 +18,15 @@ public class BaseSpannableString extends SpannableString {
 
     public static class Clickable extends ClickableSpan implements View.OnClickListener {
 
-        static final String COLOR_STRING = "#5C82BD";
         private final View.OnClickListener mListener;
-        private String color = COLOR_STRING;
+        private int color = BaseApplication.getInstance().getResources().getColor(R.color.color_link);
 
 
         public Clickable(View.OnClickListener l) {
             mListener = l;
         }
 
-        public Clickable(View.OnClickListener l, String color) {
+        public Clickable(View.OnClickListener l, int color) {
             mListener = l;
             this.color = color;
         }
@@ -44,7 +42,7 @@ public class BaseSpannableString extends SpannableString {
         public void updateDrawState(TextPaint ds) {
             super.updateDrawState(ds);
             ds.setUnderlineText(false);
-            ds.setColor(Color.parseColor(color));
+            ds.setColor(color);
         }
     }
 }

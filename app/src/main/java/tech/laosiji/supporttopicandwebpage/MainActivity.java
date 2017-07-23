@@ -10,11 +10,11 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        String data = "http://115rc.com/home/topic/1231492.html# #30003话题#";
-        String topic = "30003话题";
+        String data = "#话题1##话题2# 这是一个老司机的网站 http://laosiji.tech";
+        String[] topics = new String[]{"话题1", "话题2"};
 
         TextView textView = (TextView) findViewById(R.id.text);
-        URLIconSpannableString spannableString = new URLIconSpannableString(data,topic);
+        URLIconSpannableString spannableString = new URLIconSpannableString(data, topics);
 
         textView.setText(new URLReplaceSpannableStringBuilder().append(spannableString));
     }

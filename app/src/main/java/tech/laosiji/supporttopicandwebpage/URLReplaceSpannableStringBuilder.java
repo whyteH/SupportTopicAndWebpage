@@ -54,7 +54,7 @@ public class URLReplaceSpannableStringBuilder extends SpannableStringBuilder {
                 builder.replace(replaceStart, replaceEnd, REPLACE_STRING);
                 Drawable drawable = BaseApplication.getInstance().getResources().getDrawable(R.mipmap.ic_dynamic_link_bound);
                 drawable.setBounds(0, 0, drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight());
-                setSpan(new ImageSpan(drawable, DynamicDrawableSpan.ALIGN_BOTTOM)
+                setSpan(new ImageSpan(drawable, DynamicDrawableSpan.ALIGN_BASELINE)
                         , replaceStart, replaceStart + ("\t".length()), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
                 offset += ff.length() - REPLACE_STRING.length();
             }

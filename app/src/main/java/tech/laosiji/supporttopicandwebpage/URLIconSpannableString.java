@@ -14,9 +14,7 @@ import java.util.regex.Pattern;
 
 public class URLIconSpannableString extends BaseSpannableString {
 
-    public static final String SPLIT = "#";
-
-    public URLIconSpannableString(CharSequence source, String topic) {
+    public URLIconSpannableString(CharSequence source, String... topic) {
         super(source);
         initUrl(source);
 
@@ -52,33 +50,23 @@ public class URLIconSpannableString extends BaseSpannableString {
         }
     }
 
-    private void initTopic(CharSequence source, String topic) {
-        String[] marchers;
-        if (!TextUtils.isEmpty(topic)) {
-            if (topic.contains(SPLIT)) {
-                marchers = topic.split(SPLIT);
-            } else {
-                marchers = new String[1];
-                marchers[0] = topic;
+    private void initTopic(CharSequence source, String[] topic) {
+        StringBuilder builder = new StringBuilder();
+        for (int i = 0; i < topic.length; i++) {
+            builder.append(WebUtils.regexSpecial(topic[i]));
+            if (i < topic.length - 1) {
+                builder.append("|");
             }
-            StringBuilder builder = new StringBuilder();
-            for (int i = 0; i < marchers.length; i++) {
-                if (i < marchers.length - 1) {
-                    builder.append(WebUtils.regexSpecial(marchers[i])).append("|");
-                } else {
-                    builder.append(WebUtils.regexSpecial(marchers[i]));
-                }
-            }
-            String regex = "#(?:" + builder.toString() + ")#";
-            Pattern p = Pattern.compile(regex);
-            Matcher matcher = p.matcher(source);
-            while (matcher.find()) {
-                final String find = matcher.group();
-                if (!TextUtils.isEmpty(find)) {
-                    int start = matcher.start();
-                    int end = matcher.end();
-                    setSpan(new Clickable(new TopicClickListener(find), "#5C82BD"), start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-                }
+        }
+        String regex = "#(?:" + builder.toString() + ")#";
+        Pattern p = Pattern.compile(regex);
+        Matcher matcher = p.matcher(source);
+        while (matcher.find()) {
+            final String find = matcher.group();
+            if (!TextUtils.isEmpty(find)) {
+                int start = matcher.start();
+                int end = matcher.end();
+                setSpan(new Clickable(new TopicClickListener(find)), start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
             }
         }
     }
@@ -94,6 +82,7 @@ public class URLIconSpannableString extends BaseSpannableString {
         @Override
         public void onClick(View arg0) {
             Toast.makeText(BaseApplication.getInstance(), "click 网址：" + url, Toast.LENGTH_SHORT).show();
+            WebUtils.openUrl(url);
         }
     }
 
