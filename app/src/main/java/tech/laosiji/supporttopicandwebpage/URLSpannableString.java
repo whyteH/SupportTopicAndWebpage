@@ -12,15 +12,18 @@ import java.util.regex.Pattern;
  * Created by Whyte on 2017/7/21.
  */
 
-public class URLIconSpannableString extends BaseSpannableString {
+public class URLSpannableString extends BaseSpannableString {
 
-    public URLIconSpannableString(CharSequence source, String... topic) {
+    public URLSpannableString(CharSequence source, String... topic) {
         super(source);
         initUrl(source);
-
         initTopic(source, topic);
     }
 
+    /**
+     * 支持url点击
+     * @param source
+     */
     private void initUrl(CharSequence source) {
         Pattern defaultPattern = Pattern.compile(WebUtils.DYNAMIC_URL_REGEX);
         Matcher matcher = defaultPattern.matcher(source);
@@ -50,6 +53,26 @@ public class URLIconSpannableString extends BaseSpannableString {
         }
     }
 
+    private static class URLClickListener implements View.OnClickListener {
+
+        private String url;
+
+        URLClickListener(String url) {
+            this.url = url;
+        }
+
+        @Override
+        public void onClick(View arg0) {
+            Toast.makeText(BaseApplication.getInstance(), "click 网址：" + url, Toast.LENGTH_SHORT).show();
+            WebUtils.openUrl(url);
+        }
+    }
+
+    /**
+     * 支持话题点击
+     * @param source
+     * @param topic
+     */
     private void initTopic(CharSequence source, String[] topic) {
         StringBuilder builder = new StringBuilder();
         for (int i = 0; i < topic.length; i++) {
@@ -71,20 +94,7 @@ public class URLIconSpannableString extends BaseSpannableString {
         }
     }
 
-    private static class URLClickListener implements View.OnClickListener {
 
-        private String url;
-
-        URLClickListener(String url) {
-            this.url = url;
-        }
-
-        @Override
-        public void onClick(View arg0) {
-            Toast.makeText(BaseApplication.getInstance(), "click 网址：" + url, Toast.LENGTH_SHORT).show();
-            WebUtils.openUrl(url);
-        }
-    }
 
     private class TopicClickListener implements View.OnClickListener {
 

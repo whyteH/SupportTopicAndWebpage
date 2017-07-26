@@ -15,7 +15,6 @@ import java.util.regex.Pattern;
 
 public class URLReplaceSpannableStringBuilder extends SpannableStringBuilder {
 
-
     public URLReplaceSpannableStringBuilder() {
     }
 

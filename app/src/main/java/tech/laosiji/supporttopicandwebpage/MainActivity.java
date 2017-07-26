@@ -14,7 +14,7 @@ public class MainActivity extends AppCompatActivity {
         String[] topics = new String[]{"话题1", "话题2"};
 
         TextView textView = (TextView) findViewById(R.id.text);
-        URLIconSpannableString spannableString = new URLIconSpannableString(data, topics);
+        URLSpannableString spannableString = new URLSpannableString(data, topics);
 
         textView.setText(new URLReplaceSpannableStringBuilder().append(spannableString));
     }
