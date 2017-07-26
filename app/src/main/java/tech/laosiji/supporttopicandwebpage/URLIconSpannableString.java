@@ -96,7 +96,6 @@ public class URLIconSpannableString extends BaseSpannableString {
 
         @Override
         public void onClick(View widget) {
-
             String trimText = text.substring(1, text.length() - 1);
             Toast.makeText(BaseApplication.getInstance(), "click 话题：" + trimText, Toast.LENGTH_SHORT).show();
         }

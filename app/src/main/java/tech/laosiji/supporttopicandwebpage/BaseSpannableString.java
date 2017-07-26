@@ -16,8 +16,7 @@ public class BaseSpannableString extends SpannableString {
         super(source);
     }
 
-    public static class Clickable extends ClickableSpan implements View.OnClickListener {
-
+    public static class Clickable extends ClickableSpan {
         private final View.OnClickListener mListener;
         private int color = BaseApplication.getInstance().getResources().getColor(R.color.color_link);
 
@@ -34,7 +33,8 @@ public class BaseSpannableString extends SpannableString {
 
         @Override
         public void onClick(View widget) {
-            mListener.onClick(widget);
+            if (mListener != null)
+                mListener.onClick(widget);
         }
 
 
